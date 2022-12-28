@@ -1,59 +1,4 @@
-# typescript-npm-package-template
-
-> Template to kickstart creating a Node.js module using TypeScript and VSCode
-
-Inspired by [node-module-boilerplate](https://github.com/sindresorhus/node-module-boilerplate)
-
-## Features
-
-- [Semantic Release](https://github.com/semantic-release/semantic-release)
-- [Issue Templates](https://github.com/ryansonshine/typescript-npm-package-template/tree/main/.github/ISSUE_TEMPLATE)
-- [GitHub Actions](https://github.com/ryansonshine/typescript-npm-package-template/tree/main/.github/workflows)
-- [Codecov](https://about.codecov.io/)
-- [VSCode Launch Configurations](https://github.com/ryansonshine/typescript-npm-package-template/blob/main/.vscode/launch.json)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Husky](https://github.com/typicode/husky)
-- [Lint Staged](https://github.com/okonet/lint-staged)
-- [Commitizen](https://github.com/search?q=commitizen)
-- [Jest](https://jestjs.io/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-
-## Getting started
-
-### Set up your repository
-
-**Click the "Use this template" button.**
-
-Alternatively, create a new directory and then run:
-
-```bash
-curl -fsSL https://github.com/ryansonshine/typescript-npm-package-template/archive/main.tar.gz | tar -xz --strip-components=1
-```
-
-Replace `FULL_NAME`, `GITHUB_USER`, and `REPO_NAME` in the script below with your own details to personalize your new package:
-
-```bash
-FULL_NAME="John Smith"
-GITHUB_USER="johnsmith"
-REPO_NAME="my-cool-package"
-sed -i.mybak "s/\([\/\"]\)(ryansonshine)/$GITHUB_USER/g; s/typescript-npm-package-template\|my-package-name/$REPO_NAME/g; s/Ryan Sonshine/$FULL_NAME/g" package.json package-lock.json README.md
-rm *.mybak
-```
-
-### Add NPM Token
-
-Add your npm token to your GitHub repository secrets as `NPM_TOKEN`.
-
-### Add Codecov integration
-
-Enable the Codecov GitHub App [here](https://github.com/apps/codecov).
-
-**Remove everything from here and above**
-
----
-
-# my-package-name
+# us-taxes
 
 [![npm package][npm-img]][npm-url]
 [![Build Status][build-img]][build-url]
@@ -68,49 +13,68 @@ Enable the Codecov GitHub App [here](https://github.com/apps/codecov).
 ## Install
 
 ```bash
-npm install my-package-name
+npm install us-taxes
 ```
 
 ## Usage
 
 ```ts
-import { myPackage } from 'my-package-name';
+import { calculateTaxAmount } from 'us-taxes';
 
-myPackage('hello');
-//=> 'hello from my package'
+const brackets = [
+{ maxAmount: 0, rate: 0 },
+{ maxAmount: 10275, rate: 0.1 },
+{ maxAmount: 41775, rate: 0.12 },
+{ maxAmount: 89075, rate: 0.22 },
+{ maxAmount: 170050, rate: 0.24 },
+{ maxAmount: 215950, rate: 0.32 },
+{ maxAmount: 539900, rate: 0.35 },
+{ maxAmount: Infinity, rate: 0.37 },
+];
+
+
+const taxAmount = calculateTaxAmount(500, brackets);
+//=> 'taxAmount is the amount of taxes owed based on the income amount passed in'
 ```
 
 ## API
 
-### myPackage(input, options?)
+### calculateTaxAmount(amount, brackets)
 
-#### input
+#### amount
 
-Type: `string`
+Type: `number`
 
-Lorem ipsum.
+The amount of taxable income to use when calculating taxes due.
 
-#### options
+#### brackets
 
 Type: `object`
 
-##### postfix
+The tax brackets to use when calculating the amount of taxes owed for the taxable income passed in
 
-Type: `string`
-Default: `rainbows`
+##### maxAmount
 
-Lorem ipsum.
+Type: `number`
 
-[build-img]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml/badge.svg
-[build-url]:https://github.com/ryansonshine/typescript-npm-package-template/actions/workflows/release.yml
-[downloads-img]:https://img.shields.io/npm/dt/typescript-npm-package-template
-[downloads-url]:https://www.npmtrends.com/typescript-npm-package-template
-[npm-img]:https://img.shields.io/npm/v/typescript-npm-package-template
-[npm-url]:https://www.npmjs.com/package/typescript-npm-package-template
-[issues-img]:https://img.shields.io/github/issues/ryansonshine/typescript-npm-package-template
-[issues-url]:https://github.com/ryansonshine/typescript-npm-package-template/issues
-[codecov-img]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template/branch/main/graph/badge.svg
-[codecov-url]:https://codecov.io/gh/ryansonshine/typescript-npm-package-template
+The maxAmount for the tax bracket
+
+##### rate
+
+Type: `number`
+
+The tax rate for this tax bracket
+
+[build-img]:https://github.com/jrusso1020/us-taxes/actions/workflows/release.yml/badge.svg
+[build-url]:https://github.com/jrusso1020/us-taxes/actions/workflows/release.yml
+[downloads-img]:https://img.shields.io/npm/dt/us-taxes
+[downloads-url]:https://www.npmtrends.com/us-taxes
+[npm-img]:https://img.shields.io/npm/v/us-taxes
+[npm-url]:https://www.npmjs.com/package/us-taxes
+[issues-img]:https://img.shields.io/github/issues/jrusso1020/us-taxes
+[issues-url]:https://github.com/jrusso1020/us-taxes/issues
+[codecov-img]:https://codecov.io/gh/jrusso1020/us-taxes/branch/main/graph/badge.svg
+[codecov-url]:https://codecov.io/gh/jrusso1020/us-taxes
 [semantic-release-img]:https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-release-url]:https://github.com/semantic-release/semantic-release
 [commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
