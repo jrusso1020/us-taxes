@@ -8,7 +8,7 @@
 [![Commitizen Friendly][commitizen-img]][commitizen-url]
 [![Semantic Release][semantic-release-img]][semantic-release-url]
 
-> My awesome module
+> This package is meant to help calculate US taxes based on a progressive income tax brackets!
 
 ## Install
 
@@ -19,7 +19,7 @@ npm install us-taxes
 ## Usage
 
 ```ts
-import { calculateTaxAmount } from 'us-taxes';
+import { calculateTaxAmount, calculateFederalIncomeTax, FilingStatus } from 'us-taxes';
 
 const brackets = [
 { maxAmount: 0, rate: 0 },
@@ -35,6 +35,11 @@ const brackets = [
 
 const taxAmount = calculateTaxAmount(500, brackets);
 //=> 'taxAmount is the amount of taxes owed based on the income amount passed in'
+
+const federalTaxAmount = calculateFederalIncomeTax({amount: 500});
+const federalTaxAmountCustom = calculateFederalIncomeTax({amount: 500, filingStatus: FilingStatus.Single, year: 2022});
+//=> 'federalTaxAmount is the amount of taxes owed to the federal government, defaults to a single filing status and current year'
+//=> 'federalTaxAmountCustom is the amount of taxes owed to the federal government but setting values for filingStatus and year'
 ```
 
 ## API
@@ -64,6 +69,28 @@ The maxAmount for the tax bracket
 Type: `number`
 
 The tax rate for this tax bracket
+
+### calculateFederalIncomeTax({amount: number, filingStatus?: FilingStatus, year?: number})
+
+#### amount
+
+Type: `number`
+
+The amount of taxable income to use when calculating taxes due.
+
+#### filingStatus
+
+Type: `FilingStatus`
+default: FilingStatus.Single
+
+The filingStatus to use when calculating taxes for the incoming, defaults to S
+
+#### year
+
+Type: `number`
+default: current year
+
+The year to use when determing the tax brackets
 
 [build-img]:https://github.com/jrusso1020/us-taxes/actions/workflows/release.yml/badge.svg
 [build-url]:https://github.com/jrusso1020/us-taxes/actions/workflows/release.yml
